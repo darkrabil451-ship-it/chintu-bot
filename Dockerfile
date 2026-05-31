@@ -2,10 +2,13 @@ FROM ghcr.io/puppeteer/puppeteer:22.10.0
 
 USER root
 
-# ज़रूरी टूल्स इंस्टॉल करने के लिए
+# रेंडर के लिए एकदम सही और अपडेटेड डिपेंडेंसीज
 RUN apt-get update && apt-get install -y \
-    gconf-service \
-    libgpgme11 \
+    wget \
+    gnupg \
+    ca-certificates \
+    procps \
+    libxss1 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -16,3 +19,4 @@ RUN npm ci
 COPY . .
 
 CMD ["node", "bot.js"]
+
