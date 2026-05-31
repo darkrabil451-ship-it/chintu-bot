@@ -1,12 +1,13 @@
-FROM alekzonder/puppeteer:latest
-
-USER root
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
-
-COPY . .
-
-CMD ["node", "bot.js"]
+{
+  "name": "chintu-bot",
+  "version": "1.0.0",
+  "description": "WhatsApp Group Bot",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "whatsapp-web.js": "^1.26.0",
+    "readline": "^1.3.0"
+  }
+}
