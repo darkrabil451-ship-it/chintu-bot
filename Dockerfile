@@ -1,34 +1,24 @@
-FROM ghcr.io/puppeteer/puppeteer:latest
+FROM node:18-buster
 
-USER root
-
-# लेटेस्ट लिनक्स सर्वर्स के लिए एकदम सही पैकेजेस का सेटअप
+# लेटेस्ट क्रोमियम और व्हाट्सएप के लिए जरूरी सभी डिपेंडेंसीज इंस्टॉल करें
 RUN apt-get update && apt-get install -y \
     chromium \
-    libnss3 \
-    libnspr4 \
-    libatk1.0-0 \
-    libatk-bridge2.0-0 \
-    libcups2 \
-    libdrm2 \
-    libdbus-1-3 \
-    libxcb1 \
-    libxcomposite1 \
-    libxdamage1 \
-    libxext6 \
-    libxfixes3 \
-    libxrandr2 \
-    libgbm1 \
-    libpango-1.0-0 \
-    libcairo2 \
-    libasound2 \
+    fonts-ipafont-gothic \
+    fonts-wqy-zenhei \
+    fonts-thai-tlwg \
+    fonts-kacst \
+    fonts-freefont-ttf \
+    libxss1 \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
+
+# क्रोमियम का सही पाथ सेट करें ताकि whatsapp-web.js उसे आसानी से ढूंढ सके
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm install
 
 COPY . .
