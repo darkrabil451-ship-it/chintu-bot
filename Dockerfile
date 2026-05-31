@@ -1,4 +1,4 @@
-FROM alekzonder/puppeteer:latest
+FROM ghcr.io/puppeteer/puppeteer:latest
 
 USER root
 
